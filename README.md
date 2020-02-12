@@ -1,16 +1,10 @@
 # eat_me
 
-For food in the fridge
+Preventing food waste. Flutter app for mobile and web.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+---
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0fde4692-a685-40c4-9c39-2e2b8b1b13ac/deploy-status)](https://app.netlify.com/sites/eat-me/deploys)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[View web app](https://eat-me.netlify.com/)
