@@ -1,30 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="For food in the fridge">
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="For food in the fridge">
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="eat_me">
-  <link rel="apple-touch-icon" href="/icons/Icon-192.png">
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="eat_me">
+    <link rel="apple-touch-icon" href="/icons/Icon-192.png">
 
-  <title>eat_me</title>
-  <link rel="manifest" href="/manifest.json">
+    <title>Eat Me - Preventing food waste.</title>
+    <link rel="manifest" href="/manifest.json">
 </head>
 <body>
-  <!-- This script installs service_worker.js to provide PWA functionality to
-       application. For more information, see:
-       https://developers.google.com/web/fundamentals/primers/service-workers -->
-  <script>
+
+<script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-firestore.js"></script>
+
+<script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyDy4K_Tk7H9RV79IcHg-3riXc5yp9szeKE",
+    authDomain: "eeat-mee.firebaseapp.com",
+    databaseURL: "https://eeat-mee.firebaseio.com",
+    projectId: "eeat-mee",
+    storageBucket: "eeat-mee.appspot.com",
+    messagingSenderId: "252348121952",
+    appId: "1:252348121952:web:ea085d7cee989282d59405",
+    measurementId: "G-R165ES6NS2"
+  };
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+
+<!-- This script installs service_worker.js to provide PWA functionality to
+     application. For more information, see:
+     https://developers.google.com/web/fundamentals/primers/service-workers -->
+<script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
         navigator.serviceWorker.register('/flutter_service_worker.js');
       });
     }
-  </script>
-  <script src="main.dart.js" type="application/javascript"></script>
+
+
+</script>
+<script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>

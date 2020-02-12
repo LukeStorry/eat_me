@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "252348121952",
+    "firebase_url": "https://eeat-mee.firebaseio.com",
+    "project_id": "eeat-mee",
+    "storage_bucket": "eeat-mee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252348121952:android:3de67e2a6f951587d59405",
+        "android_client_info": {
+          "package_name": "com.lukestorry.eat_me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252348121952-e2q31rl1adjrqe0sj5bgv2o2jg7int98.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lukestorry.eat_me",
+            "certificate_hash": "6411a9b9df898dfa030c74e75ed94dc9b321e15d"
+          }
+        },
+        {
+          "client_id": "252348121952-v0jf8mfg96o530mo5q4ps6rfiltkvphe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4WzPfNwToa_aNbvusdGLfMzAI8kTUdSQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252348121952-v0jf8mfg96o530mo5q4ps6rfiltkvphe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
