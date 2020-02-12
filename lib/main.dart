@@ -39,7 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<DocumentSnapshot>(
-      // todo set custom document
       stream: Firestore.instance
           .collection('kitchens')
           .document('kitch01') // TODO kitchen selection per-user
@@ -55,22 +54,25 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildFoodList(BuildContext context, List<Food> foods) {
-    print("building FoodList for " + foods.toString());
-
     return ListView(
       padding: const EdgeInsets.only(top: 20.0),
       children: foods
           .map((data) => _buildFoodListItem(context, data))
-          .toList(), //TODO sorting?
+          .toList(),
     );
   }
 
   Widget _buildFoodListItem(BuildContext context, Food food) {
-    print("building FoodListItem for " + food.toString());
     final daysUntilExpiry = food.expiry.difference(DateTime.now()).inDays;
+
+    final daysUntilExpiryString = daysUntilExpiry.toString() +
+        " day" +
+        (daysUntilExpiry.abs() > 1 ? "s" : "");
+
     final expiryWarningColor = daysUntilExpiry < 1
         ? Colors.red
         : daysUntilExpiry <= 2 ? Colors.amber : Colors.grey;
+
     return Padding(
       key: ValueKey(food.name),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -81,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         child: ListTile(
           title: Text(food.name),
-          trailing: Text(food.expiry.toString()),
+          trailing: Text(daysUntilExpiryString),
           onTap: () => print(food), // TODO open modal
         ),
       ),
@@ -93,7 +95,7 @@ class Kitchen {
   final String name;
   final List<Food> foods;
 
-// final DocumentReference reference; // TODO do we need to set some reference for editablility?
+// final DocumentReference reference; // TODO do we need to set some reference for firebase-editablility?
 
   Kitchen.fromSnapshot(snapshot)
       : assert(snapshot.data['name'] != null),
