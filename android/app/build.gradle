@@ -38,7 +38,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.lukestorry.eat_me"
+        applicationId "com.lukestorry.eatme"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()

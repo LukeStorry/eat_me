@@ -1,4 +1,4 @@
-# eat_me
+# Eat Me
 
 Preventing food waste. Flutter app for mobile and web.
 
