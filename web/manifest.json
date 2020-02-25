@@ -1,21 +1,21 @@
 {
-    "name": "eat_me",
-    "short_name": "eat_me",
+    "name": "Eat Me",
+    "short_name": "Eat Me",
     "start_url": ".",
     "display": "minimal-ui",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "For food in the fridge",
+    "description": "Preventing food waste",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
         {
-            "src": "icons/Icon-192.png",
+            "src": "assets/icons/Icon-192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "icons/Icon-512.png",
+            "src": "assets/icons/Icon-512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
