@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'food_list_screen.dart';
+import 'user.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +10,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Eat Me',
-      home: FoodListScreen(),
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Scaffold(
+          appBar: AppBar(
+            title: const Text('Eat Me'),
+            actions: <Widget>[UserIcon()],
+          ),
+          body: Stack(
+            children: <Widget>[FoodListScreen()],
+          )),
     );
   }
 }
