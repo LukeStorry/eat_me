@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eatme/food_list.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'food_list.dart';
 import 'models.dart';
 import 'new_food_dialog.dart';
 
@@ -11,34 +12,68 @@ class FoodListScreen extends StatefulWidget {
 }
 
 class _FoodListScreenState extends State<FoodListScreen> {
-  // TODO kitchen selection per-user
-  final Stream<DocumentSnapshot> kitchenStream =
-      Firestore.instance.collection('kitchens').document('kitch01').snapshots();
+  Kitchen kitchen;
+  final Firestore _db = Firestore.instance;
+  final _auth = FirebaseAuth.instance;
 
-  _editFood(Food food) {
-    print(food);
+  @override
+  void initState() {
+    super.initState();
+    _fetchKitchenOrCreateNew();
   }
 
-  _addFood() async {
-    final food = await showDialog<Food>(
+  _fetchKitchenOrCreateNew() async {
+    var userUid = await _auth.currentUser().then((user) => user.uid);
+    print(userUid);
+    var kitchenQuery = _db
+        .collection('kitchens')
+        .where("owners", arrayContains: userUid)
+        .limit(1);
+
+    var kitchenSnapshot = await kitchenQuery.getDocuments();
+    if (kitchenSnapshot.documents.isNotEmpty) {
+      kitchen = Kitchen.fromSnapshot(kitchenSnapshot.documents.first);
+    } else {
+      //TODO add new kitchen
+      print("### NO KITCHENS FOR USER ####");
+    }
+    print(kitchen);
+    setState(() {});
+  }
+
+  _editFood(Food oldFood) async {
+    final editedFood = await showDialog<Food>(
       context: context,
       builder: (BuildContext context) {
-        return NewFoodDialog();
+        return FoodDialog.asEdit(oldFood, (food) => kitchen.deleteFood(food));
       },
     );
 
-    print(food);
+    if (editedFood != null) kitchen.editFood(editedFood);
 
-    if (food != null) {
-      // TODO send to firebase
+    setState(() {});
+  }
+
+  _addFood() async {
+    final newFood = await showDialog<Food>(
+      context: context,
+      builder: (BuildContext context) {
+        return FoodDialog.asNew();
+      },
+    );
+
+    if (newFood != null) {
+      kitchen.addFood(newFood);
+      setState(() {});
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Eat Me')),
-      body: FoodList(kitchenStream, _editFood),
+      body: (kitchen == null)
+          ? LinearProgressIndicator()
+          : FoodList(kitchen, _editFood),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: _addFood,

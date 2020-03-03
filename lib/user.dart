@@ -13,20 +13,13 @@ class _UserIconState extends State<UserIcon> {
       clientId:
           "252348121952-v0jf8mfg96o530mo5q4ps6rfiltkvphe.apps.googleusercontent.com");
   final _auth = FirebaseAuth.instance;
-  FirebaseUser user;
 
   @override
   void initState() {
     super.initState();
-    initUser();
   }
 
-  initUser() async {
-    user = await _auth.currentUser();
-    setState(() {});
-  }
-
-  Future<void> signIn() async {
+  Future<void> _signIn() async {
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
@@ -37,26 +30,39 @@ class _UserIconState extends State<UserIcon> {
     );
 
     await _auth.signInWithCredential(credential);
-    initUser();
+    print("User Signed In");
   }
 
-  void signOut() async {
+  void _signOut() async {
     await googleSignIn.signOut();
     await _auth.signOut();
-    print("User Sign Out");
+    print("User Signed Out");
   }
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      child: user == null
-          ? Text("Sign In")
-          : new Row(children: <Widget>[
-              Text("${user?.displayName}  "),
+    return StreamBuilder<FirebaseUser>(
+        stream: FirebaseAuth.instance.onAuthStateChanged,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.active)
+            return CircularProgressIndicator();
+
+          var user = snapshot.data;
+          if (user == null)
+            return FlatButton(
+                child: Text("Sign In", style: TextStyle(color: Colors.white)),
+                onPressed: () => _signIn());
+
+          return FlatButton(
+            child: Row(children: <Widget>[
+              // TODO make dropdown menu
+              Text("${user.displayName}  ",
+                  style: TextStyle(color: Colors.white)),
               new CircleAvatar(
-                  backgroundImage: NetworkImage("${user?.photoUrl}")),
+                  backgroundImage: NetworkImage("${user.photoUrl}")),
             ]),
-      onPressed: () => user == null ? signIn() : signOut(),
-    );
+            onPressed: () => _signOut(),
+          );
+        });
   }
 }
